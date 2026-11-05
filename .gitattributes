@@ -1,0 +1,18 @@
+# 统一换行符与文本处理，避免 Windows / macOS 组员互相提交时产生整文件 diff
+* text=auto eol=lf
+
+# Windows 批处理必须使用 CRLF
+*.cmd text eol=crlf
+*.bat text eol=crlf
+
+# 二进制文件不做换行转换
+*.jar binary
+*.war binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.docx binary
+*.xlsx binary
+*.pdf binary
