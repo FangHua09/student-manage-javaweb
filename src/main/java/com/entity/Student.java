@@ -1,5 +1,6 @@
 package com.entity;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 /**
@@ -14,6 +15,7 @@ import java.io.Serializable;
  */
 public class Student implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     /** 学号，主键（对应 t_student.stu_no）。 */
