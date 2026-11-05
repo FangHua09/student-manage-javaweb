@@ -30,7 +30,7 @@
 - IDE：IDEA / Eclipse
 - 版本控制：Git + GitHub
 
-## 📂 项目结构
+# 📁 项目结构
 student-manage-javaweb
 ├── src
 │   ├── com.entity        // JavaBean 实体类（User、Student）
@@ -50,6 +50,7 @@ student-manage-javaweb
 │   └── 需求分析报告.docx
 ├── .gitignore
 └── README.md
+
 
 ## 📌 数据库说明
 两张核心数据表：
