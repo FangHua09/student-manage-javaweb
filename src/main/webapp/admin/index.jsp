@@ -56,7 +56,7 @@
         <p class="module-note">学生信息管理（列表/新增）由其他组员模块接入。</p>
         <div class="module-list">
             <span class="disabled">学生列表（待接入）</span>
-            <span class="disabled">新增学生（待接入）</span>
+            <a class="link" href="${pageContext.request.contextPath}/student/add">新增学生</a>
         </div>
     </section>
 
