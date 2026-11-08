@@ -12,6 +12,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
+import java.io.Serial;
 import java.sql.SQLException;
 import java.util.Objects;
 
@@ -35,6 +36,7 @@ import java.util.Objects;
 @WebServlet(name = "passwordUpdateServlet", urlPatterns = "/password/update")
 public class PasswordUpdateServlet extends HttpServlet {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     /** Session 中登录用户对象的 key（全组统一约定）。 */

@@ -1,5 +1,6 @@
 package com.entity;
 
+import java.io.Serial;
 import java.io.Serializable;
 
 /**
@@ -16,6 +17,7 @@ import java.io.Serializable;
  */
 public class User implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     /** 角色：管理员。 */

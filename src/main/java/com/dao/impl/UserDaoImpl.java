@@ -69,7 +69,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     /**
-     * 把结果集当前行映射为 {@link User}。
+     * 把结果集当前行映射为 {@link User} 实体对象。
      *
      * @param rs 已定位到目标行的结果集
      * @return 用户对象
