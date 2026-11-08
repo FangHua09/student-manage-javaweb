@@ -48,8 +48,12 @@
         <input type="hidden" name="pageSize" value="${pageSize}">
         
         <button type="submit" class="btn">查询</button>
-        重置
-        + 新增学生
+
+<!-- 重置按钮 -->
+<a href="${pageContext.request.contextPath}/student/list" class="btn" style="background:#909399;">重置</a>
+
+<!-- 新增学生按钮（请确保朱景澈写的 Servlet 注解是 /student/add，如果是别的请替换） -->
+<a href="${pageContext.request.contextPath}/student/add" class="btn btn-success" style="margin-left:auto;">+ 新增学生</a>
     </form>
 
     <!-- 数据表格 -->
@@ -99,20 +103,21 @@
 
    <!-- 分页栏 -->
 <!-- 分页栏 -->
-    <div class="pagination">
-        <span>共 ${total} 条数据，第 ${page} / ${totalPages} 页</span>
-        
-        <c:if test="${page > 1}">
-            <!-- 翻页必须带上搜索条件和每页条数 -->
-            <a href="${pageContext.request.contextPath}/student/list?name=${name}&className=${className}&page=1&pageSize=${pageSize}">首页</a>
-            <a href="${pageContext.request.contextPath}/student/list?name=${name}&className=${className}&page=${page - 1}&pageSize=${pageSize}">上一页</a>
-        </c:if>
-        
-        <c:if test="${page < totalPages}">
-            <a href="${pageContext.request.contextPath}/student/list?name=${name}&className=${className}&page=${page + 1}&pageSize=${pageSize}">下一页</a>
-            <a href="${pageContext.request.contextPath}/student/list?name=${name}&className=${className}&page=${totalPages}&pageSize=${pageSize}">末页</a>
-        </c:if>
-    </div>
+<div class="pagination">
+    <span>共 ${total} 条数据，第 ${page} / ${totalPages} 页</span>
+    
+    <c:if test="${page > 1}">
+        <!-- 注意这里改成了 encodedName 和 encodedClassName -->
+        <a href="${pageContext.request.contextPath}/student/list?name=${encodedName}&className=${encodedClassName}&page=1&pageSize=${pageSize}">首页</a>
+        <a href="${pageContext.request.contextPath}/student/list?name=${encodedName}&className=${encodedClassName}&page=${page - 1}&pageSize=${pageSize}">上一页</a>
+    </c:if>
+    
+    <c:if test="${page < totalPages}">
+        <!-- 注意这里改成了 encodedName 和 encodedClassName -->
+        <a href="${pageContext.request.contextPath}/student/list?name=${encodedName}&className=${encodedClassName}&page=${page + 1}&pageSize=${pageSize}">下一页</a>
+        <a href="${pageContext.request.contextPath}/student/list?name=${encodedName}&className=${encodedClassName}&page=${totalPages}&pageSize=${pageSize}">末页</a>
+    </c:if>
+  </div>
 </div>
 </body>
 </html>

@@ -48,7 +48,7 @@
         <div class="value"><c:out value="${student.email}"/></div>
     </div>
 
-    返回列表
+    <a href="${pageContext.request.contextPath}/student/list" class="btn-back">返回列表</a>
 </div>
 </body>
 </html>

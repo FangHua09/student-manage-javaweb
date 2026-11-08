@@ -24,19 +24,17 @@ public class StudentDetailServlet extends HttpServlet {
             throws ServletException, IOException {
 
         String stuNo = request.getParameter("stuNo");
-        
-        // 参数为空时，重定向回列表页
+
         if (stuNo == null || stuNo.trim().isEmpty()) {
             response.sendRedirect(request.getContextPath() + "/student/list");
             return;
         }
 
-        // 权限校验：如果当前登录的是学生，只能查看自己的信息
+        // 权限校验：学生只能看自己
         HttpSession session = request.getSession(false);
         if (session != null) {
             User loginUser = (User) session.getAttribute("loginUser");
             if (loginUser != null && loginUser.isStudent()) {
-                // 如果传过来的学号不是当前登录学生的学号，拒绝访问
                 if (!stuNo.equals(loginUser.getStuNo())) {
                     request.setAttribute("errorMsg", "您无权查看其他学生的信息！");
                     request.getRequestDispatcher("/WEB-INF/error/500.jsp").forward(request, response);
