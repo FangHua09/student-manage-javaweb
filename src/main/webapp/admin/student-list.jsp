@@ -14,27 +14,48 @@
         .btn-danger { background: #f56c6c; }
         .btn-danger:hover { background: #f78989; }
         .btn-success { background: #67c23a; }
-        
+
         table { width: 100%; border-collapse: collapse; margin-bottom: 20px; text-align: center; }
         th, td { border: 1px solid #ebeef5; padding: 12px; }
         th { background-color: #f5f7fa; color: #606266; font-weight: bold; }
         tr:hover { background-color: #f5f7fa; }
-        
+
         .pagination { display: flex; justify-content: center; align-items: center; gap: 15px; margin-top: 20px; }
         .pagination a { color: #409eff; text-decoration: none; padding: 5px 10px; border: 1px solid #dcdfe6; border-radius: 4px;}
         .pagination a:hover { background: #409eff; color: white; }
         .pagination span { color: #606266; }
+
+        .msg-success { color: green; margin:8px 0; }
+        .msg-error { color: red; margin:8px 0; }
     </style>
 </head>
 <body>
 <div class="container">
     <h2>学生信息管理列表</h2>
 
+    <%-- 删除操作提示消息 --%>
+    <%
+        String msg = request.getParameter("msg");
+        if("deleteSuccess".equals(msg)){
+    %>
+    <div class="msg-success">✅ 删除成功！该学生对应的登录账号已同步删除</div>
+    <%
+        }else if("deleteFail".equals(msg)){
+    %>
+    <div class="msg-error">❌ 删除失败！</div>
+    <%
+        }else if("paramError".equals(msg)){
+    %>
+    <div class="msg-error">❌ 参数非法！</div>
+    <%
+        }
+    %>
+
     <!-- 搜索表单 (GET 请求) -->
     <form class="search-form" action="${pageContext.request.contextPath}/student/list" method="get">
         <label>姓名：</label>
         <input type="text" name="name" value="<c:out value='${name}'/>" placeholder="输入姓名关键字">
-        
+
         <label>班级：</label>
         <select name="className">
             <option value="">全部班级</option>
@@ -42,82 +63,76 @@
                 <option value="${cls}" ${cls == className ? 'selected' : ''}>${cls}</option>
             </c:forEach>
         </select>
-        
+
         <!-- 隐藏域：搜索时重置到第一页，每页条数保留 -->
         <input type="hidden" name="page" value="1">
         <input type="hidden" name="pageSize" value="${pageSize}">
-        
+
         <button type="submit" class="btn">查询</button>
-
-<!-- 重置按钮 -->
-<a href="${pageContext.request.contextPath}/student/list" class="btn" style="background:#909399;">重置</a>
-
-<!-- 新增学生按钮（请确保朱景澈写的 Servlet 注解是 /student/add，如果是别的请替换） -->
-<a href="${pageContext.request.contextPath}/student/add" class="btn btn-success" style="margin-left:auto;">+ 新增学生</a>
+        <!-- 重置按钮 -->
+        <a href="${pageContext.request.contextPath}/student/list" class="btn" style="background:#909399;">重置</a>
+        <!-- 新增学生按钮（请确保朱景澈写的 Servlet 注解是 /student/add，如果是别的请替换） -->
+        <a href="${pageContext.request.contextPath}/student/add" class="btn btn-success" style="margin-left:auto;">+ 新增学生</a>
     </form>
 
     <!-- 数据表格 -->
     <table>
         <thead>
-            <tr>
-                <th>学号</th>
-                <th>姓名</th>
-                <th>性别</th>
-                <th>班级</th>
-                <th>专业</th>
-                <th>联系电话</th>
-                <th>操作</th>
-            </tr>
+        <tr>
+            <th>学号</th>
+            <th>姓名</th>
+            <th>性别</th>
+            <th>班级</th>
+            <th>专业</th>
+            <th>联系电话</th>
+            <th>操作</th>
+        </tr>
         </thead>
         <tbody>
-            <c:choose>
-                <c:when test="${empty list}">
-                    <tr><td colspan="7" style="padding: 30px;">暂无数据</td></tr>
-                </c:when>
-                <c:otherwise>
-                    <c:forEach items="${list}" var="stu">
-                        <tr>
-                            <!-- 规范要求：输出用户数据需转义防 XSS -->
-                            <td><c:out value="${stu.stuNo}"/></td>
-                            <td><c:out value="${stu.name}"/></td>
-                            <td><c:out value="${stu.gender}"/></td>
-                            <td><c:out value="${stu.className}"/></td>
-                            <td><c:out value="${stu.major}"/></td>
-                            <td><c:out value="${stu.phone}"/></td>
-                            <td>
-    <!-- 直接连 Servlet -->
-    <a href="${pageContext.request.contextPath}/student/detail?stuNo=${stu.stuNo}" class="btn">详情</a>
-    
-    <!-- 修改-->
-    <a href="${pageContext.request.contextPath}/student/update?stuNo=${stu.stuNo}" class="btn">修改</a>
-    
-    <!-- 删除暂时用 # 占位 -->
-<a href="#" class="btn btn-danger">删除</a>
-</td>
-                        </tr>
-                    </c:forEach>
-                </c:otherwise>
-            </c:choose>
+        <c:choose>
+            <c:when test="${empty list}">
+                <tr><td colspan="7" style="padding: 30px;">暂无数据</td></tr>
+            </c:when>
+            <c:otherwise>
+                <c:forEach items="${list}" var="stu">
+                    <tr>
+                        <!-- 规范要求：输出用户数据需转义防 XSS -->
+                        <td><c:out value="${stu.stuNo}"/></td>
+                        <td><c:out value="${stu.name}"/></td>
+                        <td><c:out value="${stu.gender}"/></td>
+                        <td><c:out value="${stu.className}"/></td>
+                        <td><c:out value="${stu.major}"/></td>
+                        <td><c:out value="${stu.phone}"/></td>
+                        <td>
+                            <a href="${pageContext.request.contextPath}/student/detail?stuNo=${stu.stuNo}" class="btn">详情</a>
+                            <a href="${pageContext.request.contextPath}/student/update?stuNo=${stu.stuNo}" class="btn">修改</a>
+                            <%-- 删除POST表单，对接 DeleteStudentServlet --%>
+                            <form action="${pageContext.request.contextPath}/admin/deleteStudent" method="post" style="display:inline"
+                                  onsubmit="return confirm('确认删除这条学生信息吗？删除会同步删除登录账号！')">
+                                <input type="hidden" name="stuNo" value="<c:out value='${stu.stuNo}'/>">
+                                <button type="submit" class="btn btn-danger">删除</button>
+                            </form>
+                        </td>
+                    </tr>
+                </c:forEach>
+            </c:otherwise>
+        </c:choose>
         </tbody>
     </table>
+    <!-- 分页栏 -->
+    <div class="pagination">
+        <span>共 ${total} 条数据，第 ${page} / ${totalPages} 页</span>
 
-   <!-- 分页栏 -->
-<!-- 分页栏 -->
-<div class="pagination">
-    <span>共 ${total} 条数据，第 ${page} / ${totalPages} 页</span>
-    
-    <c:if test="${page > 1}">
-        <!-- 注意这里改成了 encodedName 和 encodedClassName -->
-        <a href="${pageContext.request.contextPath}/student/list?name=${encodedName}&className=${encodedClassName}&page=1&pageSize=${pageSize}">首页</a>
-        <a href="${pageContext.request.contextPath}/student/list?name=${encodedName}&className=${encodedClassName}&page=${page - 1}&pageSize=${pageSize}">上一页</a>
-    </c:if>
-    
-    <c:if test="${page < totalPages}">
-        <!-- 注意这里改成了 encodedName 和 encodedClassName -->
-        <a href="${pageContext.request.contextPath}/student/list?name=${encodedName}&className=${encodedClassName}&page=${page + 1}&pageSize=${pageSize}">下一页</a>
-        <a href="${pageContext.request.contextPath}/student/list?name=${encodedName}&className=${encodedClassName}&page=${totalPages}&pageSize=${pageSize}">末页</a>
-    </c:if>
-  </div>
+        <c:if test="${page > 1}">
+            <a href="${pageContext.request.contextPath}/student/list?name=${encodedName}&className=${encodedClassName}&page=1&pageSize=${pageSize}">首页</a>
+            <a href="${pageContext.request.contextPath}/student/list?name=${encodedName}&className=${encodedClassName}&page=${page - 1}&pageSize=${pageSize}">上一页</a>
+        </c:if>
+
+        <c:if test="${page < totalPages}">
+            <a href="${pageContext.request.contextPath}/student/list?name=${encodedName}&className=${encodedClassName}&page=${page + 1}&pageSize=${pageSize}">下一页</a>
+            <a href="${pageContext.request.contextPath}/student/list?name=${encodedName}&className=${encodedClassName}&page=${totalPages}&pageSize=${pageSize}">末页</a>
+        </c:if>
+    </div>
 </div>
 </body>
 </html>
