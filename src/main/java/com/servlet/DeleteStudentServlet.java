@@ -40,6 +40,8 @@ public class DeleteStudentServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws IOException {
+        request.setCharacterEncoding("UTF-8");
+
         // 1. 权限校验：未登录跳回登录页；非管理员跳回学生首页
         User loginUser = getLoginUser(request);
         if (loginUser == null) {
@@ -84,11 +86,7 @@ public class DeleteStudentServlet extends HttpServlet {
     }
 
     /**
-     * 拼接返回列表页的 URL，保留当前姓名、班级筛选条件与分页位置。
-     *
-     * @param request HTTP 请求
-     * @param msg     结果提示标识（deleteSuccess / deleteFail / paramError）
-     * @return 带筛选与分页参数的列表页地址
+     * 拼接返回列表页的 URL，保留当前姓名、班级筛选条件与分页位置，中文编码防乱码
      */
     private String buildListUrl(HttpServletRequest request, String msg) {
         String name = trimToEmpty(request.getParameter("name"));
@@ -120,9 +118,6 @@ public class DeleteStudentServlet extends HttpServlet {
 
     /**
      * 从 Session 读取当前登录用户。
-     *
-     * @param request HTTP 请求
-     * @return 登录用户；未登录或 Session 中对象类型不符时返回 {@code null}
      */
     private static User getLoginUser(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
@@ -133,3 +128,4 @@ public class DeleteStudentServlet extends HttpServlet {
         return value instanceof User ? (User) value : null;
     }
 }
+
