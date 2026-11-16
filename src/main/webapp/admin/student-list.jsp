@@ -110,6 +110,11 @@
                             <form action="${pageContext.request.contextPath}/admin/deleteStudent" method="post" style="display:inline"
                                   onsubmit="return confirm('确认删除这条学生信息吗？删除会同步删除登录账号！')">
                                 <input type="hidden" name="stuNo" value="<c:out value='${stu.stuNo}'/>">
+                                <%-- 回传当前筛选条件与分页位置，删除后不丢失 --%>
+                                <input type="hidden" name="name" value="<c:out value='${name}'/>">
+                                <input type="hidden" name="className" value="<c:out value='${className}'/>">
+                                <input type="hidden" name="page" value="${page}">
+                                <input type="hidden" name="pageSize" value="${pageSize}">
                                 <button type="submit" class="btn btn-danger">删除</button>
                             </form>
                         </td>

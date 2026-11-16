@@ -57,5 +57,8 @@ build/
 ### VS Code ###
 .vscode/
 
+### SmartTomcat 本地插件容器配置（不提交） ###
+.smarttomcat/
+
 ### Mac OS ###
 .DS_Store
