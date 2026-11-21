@@ -9,8 +9,10 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
+import java.io.Serial;
 import java.net.URLEncoder;
 import java.sql.SQLException;
 import java.util.List;
@@ -18,18 +20,25 @@ import java.util.List;
 @WebServlet("/student/list")
 public class StudentListServlet extends HttpServlet {
 
+    @Serial
+    private static final long serialVersionUID = 1L;
+
+    private static final String SESSION_LOGIN_USER = "loginUser";
+
     private final StudentDao studentDao = new StudentDaoImpl();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // 【修复 PR 问题 1：越权拦截】
-        // 只有管理员可以访问列表页，学生如果在地址栏乱输，直接拦截
-        User loginUser = (User) request.getSession().getAttribute("loginUser");
-        if (loginUser == null || !loginUser.isAdmin()) {
-            request.setAttribute("errorMsg", "您无权访问学生列表页面！");
-            request.getRequestDispatcher("/WEB-INF/error/500.jsp").forward(request, response);
+        // 只有管理员可以访问列表页；未登录回登录页，学生回学生首页
+        User loginUser = getLoginUser(request);
+        if (loginUser == null) {
+            response.sendRedirect(request.getContextPath() + "/login.jsp");
+            return;
+        }
+        if (!loginUser.isAdmin()) {
+            response.sendRedirect(request.getContextPath() + "/student/index.jsp");
             return;
         }
 
@@ -64,9 +73,13 @@ public class StudentListServlet extends HttpServlet {
             int total = studentDao.count(name, className);
             int totalPages = (total + pageSize - 1) / pageSize;
 
-            // 4. 修正页码
+            // 4. 修正页码：空结果也固定为第 1 页，避免显示“第 999 / 0 页”
             if (page < 1) page = 1;
-            if (totalPages > 0 && page > totalPages) page = totalPages;
+            if (totalPages == 0) {
+                page = 1;
+            } else if (page > totalPages) {
+                page = totalPages;
+            }
 
             // 5. 查询当页数据
             List<Student> list = studentDao.findByPage(name, className, page, pageSize);
@@ -98,7 +111,17 @@ public class StudentListServlet extends HttpServlet {
             getServletContext().log("学生列表查询失败：name=" + name + ", className=" + className
                     + ", page=" + page + ", pageSize=" + pageSize, e);
             request.setAttribute("errorMsg", "数据库连接失败或查询异常，请稍后再试！");
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             request.getRequestDispatcher("/WEB-INF/error/500.jsp").forward(request, response);
         }
+    }
+
+    private static User getLoginUser(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        if (session == null) {
+            return null;
+        }
+        Object value = session.getAttribute(SESSION_LOGIN_USER);
+        return value instanceof User ? (User) value : null;
     }
 }

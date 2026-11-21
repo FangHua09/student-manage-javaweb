@@ -38,18 +38,26 @@ import java.util.logging.Logger;
  */
 public final class DbUtil {
 
-    /** classpath 下的数据库配置文件名称（相对路径由 ClassLoader 解析）。 */
+    /**
+     * classpath 下的数据库配置文件名称（相对路径由 ClassLoader 解析）。
+     */
     private static final String CONFIG_FILE = "db.properties";
 
-    /** 默认 JDBC 驱动类，兼容 MySQL Connector/J 8。 */
+    /**
+     * 默认 JDBC 驱动类，兼容 MySQL Connector/J 8。
+     */
     private static final String DEFAULT_DRIVER = "com.mysql.cj.jdbc.Driver";
 
     private static final Logger LOGGER = Logger.getLogger(DbUtil.class.getName());
 
-    /** 懒加载的配置缓存，volatile + 双重检查保证线程安全。 */
+    /**
+     * 懒加载的配置缓存，volatile + 双重检查保证线程安全。
+     */
     private static volatile Properties config;
 
-    /** 工具类禁止实例化。 */
+    /**
+     * 工具类禁止实例化。
+     */
     private DbUtil() {
     }
 

@@ -27,13 +27,19 @@ import java.util.List;
  */
 public class StudentDaoImpl implements StudentDao {
 
-    /** 查询列，顺序与 {@link #mapRow(ResultSet)} 一致。 */
+    /**
+     * 查询列，顺序与 {@link #mapRow(ResultSet)} 一致。
+     */
     private static final String COLUMNS = "stu_no, name, gender, class_name, major, phone, email";
 
-    /** 默认每页条数。 */
+    /**
+     * 默认每页条数。
+     */
     private static final int DEFAULT_PAGE_SIZE = 10;
 
-    /** 每页条数上限，防止一次拉取过多数据。 */
+    /**
+     * 每页条数上限，防止一次拉取过多数据。
+     */
     private static final int MAX_PAGE_SIZE = 100;
 
     private static final String SQL_FIND_BY_STU_NO =

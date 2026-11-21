@@ -42,19 +42,29 @@ public class StudentAddServlet extends HttpServlet {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    /** Session 中登录用户对象的 key（全组统一约定）。 */
+    /**
+     * Session 中登录用户对象的 key（全组统一约定）。
+     */
     private static final String SESSION_LOGIN_USER = "loginUser";
 
-    /** 新增与修改共用的表单页（放在 {@code /admin} 下，受过滤器角色保护）。 */
+    /**
+     * 新增与修改共用的表单页（放在 {@code /admin} 下，受过滤器角色保护）。
+     */
     private static final String FORM_PAGE = "/admin/student-form.jsp";
 
-    /** 学生首页路径（学生角色无权新增，重定向回这里）。 */
+    /**
+     * 学生首页路径（学生角色无权新增，重定向回这里）。
+     */
     private static final String STUDENT_HOME = "/student/index.jsp";
 
-    /** 表单模式：新增。 */
+    /**
+     * 表单模式：新增。
+     */
     private static final String MODE_ADD = "add";
 
-    /** 数据库异常时的统一提示（与登录模块保持一致的口径）。 */
+    /**
+     * 数据库异常时的统一提示（与登录模块保持一致的口径）。
+     */
     private static final String DB_ERROR_MESSAGE =
             "数据库连接失败，请稍后重试（请检查 MySQL 是否启动、db.properties 配置是否正确）";
 

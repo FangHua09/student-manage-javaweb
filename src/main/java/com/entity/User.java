@@ -20,25 +20,39 @@ public class User implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    /** 角色：管理员。 */
+    /**
+     * 角色：管理员。
+     */
     public static final int ROLE_ADMIN = 0;
 
-    /** 角色：学生。 */
+    /**
+     * 角色：学生。
+     */
     public static final int ROLE_STUDENT = 1;
 
-    /** 用户主键，自增（对应 t_user.user_id）。 */
+    /**
+     * 用户主键，自增（对应 t_user.user_id）。
+     */
     private Integer userId;
 
-    /** 登录账号（对应 t_user.username，唯一）。 */
+    /**
+     * 登录账号（对应 t_user.username，唯一）。
+     */
     private String username;
 
-    /** 登录密码（对应 t_user.password，课程项目按明文存储）。 */
+    /**
+     * 登录密码（对应 t_user.password，课程项目按明文存储）。
+     */
     private String password;
 
-    /** 角色：0 管理员，1 学生（对应 t_user.role）。 */
+    /**
+     * 角色：0 管理员，1 学生（对应 t_user.role）。
+     */
     private int role;
 
-    /** 关联学号，管理员为 null（对应 t_user.stu_no）。 */
+    /**
+     * 关联学号，管理员为 null（对应 t_user.stu_no）。
+     */
     private String stuNo;
 
     public User() {

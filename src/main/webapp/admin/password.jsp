@@ -10,6 +10,9 @@
 <c:if test="${empty sessionScope.loginUser}">
     <c:redirect url="/login.jsp"/>
 </c:if>
+<c:if test="${sessionScope.loginUser.student}">
+    <c:redirect url="/student/index.jsp"/>
+</c:if>
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>

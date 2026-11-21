@@ -29,10 +29,14 @@ public class DeleteStudentServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
-    /** Session 中登录用户对象的 key（全组统一约定）。 */
+    /**
+     * Session 中登录用户对象的 key（全组统一约定）。
+     */
     private static final String SESSION_LOGIN_USER = "loginUser";
 
-    /** 学生首页路径（学生角色无权删除，重定向回这里）。 */
+    /**
+     * 学生首页路径（学生角色无权删除，重定向回这里）。
+     */
     private static final String STUDENT_HOME = "/student/index.jsp";
 
     private final StudentDao studentDao = new StudentDaoImpl();

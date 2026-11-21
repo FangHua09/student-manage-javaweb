@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" isErrorPage="true" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -12,6 +13,8 @@
                 box-shadow: 0 8px 24px rgba(0, 0, 0, .08); }
         .code { font-size: 72px; font-weight: 700; color: #e05b5b; line-height: 1; margin: 0; }
         .tip { margin: 16px 0 28px; color: #666; }
+        .tip.error { color: #b42318; background: #fef3f2; border: 1px solid #fecdca;
+                     border-radius: 6px; padding: 10px 14px; }
         a { display: inline-block; padding: 10px 24px; background: #4a90d9; color: #fff;
             border-radius: 6px; text-decoration: none; }
         a:hover { background: #357abd; }
@@ -20,8 +23,11 @@
 <body>
 <div class="card">
     <p class="code">500</p>
+    <c:if test="${not empty errorMsg}">
+        <p class="tip error"><c:out value="${errorMsg}"/></p>
+    </c:if>
     <p class="tip">系统处理请求时出现异常，请稍后重试；若反复出现，请联系管理员。</p>
-    <a href="<%= request.getContextPath() %>/login.jsp">返回登录页</a>
+    <a href="${pageContext.request.contextPath}/login.jsp">返回登录页</a>
 </div>
 </body>
 </html>

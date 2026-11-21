@@ -39,22 +39,34 @@ public class PasswordUpdateServlet extends HttpServlet {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    /** Session 中登录用户对象的 key（全组统一约定）。 */
+    /**
+     * Session 中登录用户对象的 key（全组统一约定）。
+     */
     private static final String SESSION_LOGIN_USER = "loginUser";
 
-    /** 新密码最小长度。 */
+    /**
+     * 新密码最小长度。
+     */
     private static final int MIN_PASSWORD_LENGTH = 6;
 
-    /** 新密码最大长度。 */
+    /**
+     * 新密码最大长度。
+     */
     private static final int MAX_PASSWORD_LENGTH = 20;
 
-    /** 管理员改密页路径（相对上下文根）。 */
+    /**
+     * 管理员改密页路径（相对上下文根）。
+     */
     private static final String ADMIN_PASSWORD_PAGE = "/admin/password.jsp";
 
-    /** 学生改密页路径（相对上下文根）。 */
+    /**
+     * 学生改密页路径（相对上下文根）。
+     */
     private static final String STUDENT_PASSWORD_PAGE = "/student/password.jsp";
 
-    /** 数据库异常时的统一提示。 */
+    /**
+     * 数据库异常时的统一提示。
+     */
     private static final String DB_ERROR_MESSAGE =
             "数据库连接失败，请稍后重试（请检查 MySQL 是否启动、db.properties 配置是否正确）";
 

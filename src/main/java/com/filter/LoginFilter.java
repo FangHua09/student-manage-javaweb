@@ -37,16 +37,24 @@ import java.io.IOException;
 @WebFilter(filterName = "loginFilter", urlPatterns = "/*")
 public class LoginFilter implements Filter {
 
-    /** Session 中登录用户对象的 key（全组统一约定）。 */
+    /**
+     * Session 中登录用户对象的 key（全组统一约定）。
+     */
     private static final String SESSION_LOGIN_USER = "loginUser";
 
-    /** 登录页路径（相对上下文根）。 */
+    /**
+     * 登录页路径（相对上下文根）。
+     */
     private static final String LOGIN_PAGE = "/login.jsp";
 
-    /** 学生首页路径（相对上下文根）。 */
+    /**
+     * 学生首页路径（相对上下文根）。
+     */
     private static final String STUDENT_HOME = "/student/index.jsp";
 
-    /** 管理员目录（相对上下文根），学生角色禁止访问。 */
+    /**
+     * 管理员目录（相对上下文根），学生角色禁止访问。
+     */
     private static final String ADMIN_AREA = "/admin";
 
     /**

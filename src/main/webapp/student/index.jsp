@@ -1,14 +1,16 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <%--
-    学生首页（易思韵负责）
+    学生首页
     契约：顶部栏为“学生 · ${loginUser.username}”，导航修改密码 /password/update、退出登录 /logout；
-          账号信息表展示登录账号、角色、关联学号；“我的信息”入口由其他组员模块接入，
-          链接指向 /student/detail?stuNo=...，当前标注“待接入”。
-    未登录防御：会话中没有 loginUser 时重定向回登录页（Filter 之外的双重保护）。
+          账号信息表展示登录账号、角色、关联学号；“我的信息”链接指向本人详情页。
+    防御：未登录重定向登录页；管理员误入时重定向管理员首页（Filter 之外的双重保护）。
 --%>
 <c:if test="${empty sessionScope.loginUser}">
     <c:redirect url="/login.jsp"/>
+</c:if>
+<c:if test="${sessionScope.loginUser.admin}">
+    <c:redirect url="/admin/index.jsp"/>
 </c:if>
 <!DOCTYPE html>
 <html lang="zh-CN">
@@ -54,11 +56,12 @@
         </table>
 
         <h2 class="section-title">功能入口</h2>
-        <p class="module-note">学生信息查询功能由其他组员模块接入。</p>
+        <p class="module-note">您可以查看本人的档案信息，也可以随时修改登录密码。</p>
         <div class="module-list">
-            <a class="disabled"
-               href="${pageContext.request.contextPath}/student/detail?stuNo=<c:out value='${loginUser.stuNo}'/>"
-               aria-disabled="true" tabindex="-1">我的信息（待接入）</a>
+            <c:url var="myDetailUrl" value="/student/detail">
+                <c:param name="stuNo" value="${loginUser.stuNo}"/>
+            </c:url>
+            <a class="link" href="${myDetailUrl}">查看我的信息</a>
         </div>
     </section>
 

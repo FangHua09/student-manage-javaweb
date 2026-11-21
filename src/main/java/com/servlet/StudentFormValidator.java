@@ -21,21 +21,31 @@ import java.util.regex.Pattern;
  */
 public final class StudentFormValidator {
 
-    /** 学号：4~20 位字母或数字。 */
+    /**
+     * 学号：4~20 位字母或数字。
+     */
     private static final Pattern STU_NO_PATTERN = Pattern.compile("^[0-9A-Za-z]{4,20}$");
 
-    /** 联系电话：6~15 位数字，允许用减号分隔区号（如 020-88886666）。 */
+    /**
+     * 联系电话：6~15 位数字，允许用减号分隔区号（如 020-88886666）。
+     */
     private static final Pattern PHONE_PATTERN = Pattern.compile("^[0-9][0-9-]{5,14}$");
 
-    /** 邮箱：简单的 xxx@xxx.xx 形式（不追求 RFC 完整性，够用即可）。 */
+    /**
+     * 邮箱：简单的 xxx@xxx.xx 形式（不追求 RFC 完整性，够用即可）。
+     */
     private static final Pattern EMAIL_PATTERN =
             Pattern.compile("^[0-9A-Za-z._%+-]+@[0-9A-Za-z.-]+\\.[A-Za-z]{2,}$");
 
-    /** 性别合法取值。 */
+    /**
+     * 性别合法取值。
+     */
     private static final String GENDER_MALE = "男";
     private static final String GENDER_FEMALE = "女";
 
-    /** 各字段最大长度（与数据库列长度一致）。 */
+    /**
+     * 各字段最大长度（与数据库列长度一致）。
+     */
     private static final int MAX_STU_NO = 20;
     private static final int MAX_NAME = 20;
     private static final int MAX_CLASS_NAME = 30;

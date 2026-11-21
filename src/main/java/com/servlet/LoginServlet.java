@@ -39,19 +39,29 @@ public class LoginServlet extends HttpServlet {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    /** Session 中登录用户对象的 key（全组统一约定）。 */
+    /**
+     * Session 中登录用户对象的 key（全组统一约定）。
+     */
     private static final String SESSION_LOGIN_USER = "loginUser";
 
-    /** 登录页路径（相对上下文根）。 */
+    /**
+     * 登录页路径（相对上下文根）。
+     */
     private static final String LOGIN_PAGE = "/login.jsp";
 
-    /** 管理员首页路径（相对上下文根）。 */
+    /**
+     * 管理员首页路径（相对上下文根）。
+     */
     private static final String ADMIN_HOME = "/admin/index.jsp";
 
-    /** 学生首页路径（相对上下文根）。 */
+    /**
+     * 学生首页路径（相对上下文根）。
+     */
     private static final String STUDENT_HOME = "/student/index.jsp";
 
-    /** 账号或密码错误的统一提示，不区分“账号不存在”和“密码错误”。 */
+    /**
+     * 账号或密码错误的统一提示，不区分“账号不存在”和“密码错误”。
+     */
     private static final String LOGIN_FAILED_MESSAGE = "账号或密码错误，请重新输入";
 
     /**

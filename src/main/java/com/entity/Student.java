@@ -18,25 +18,39 @@ public class Student implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    /** 学号，主键（对应 t_student.stu_no）。 */
+    /**
+     * 学号，主键（对应 t_student.stu_no）。
+     */
     private String stuNo;
 
-    /** 姓名（对应 t_student.name）。 */
+    /**
+     * 姓名（对应 t_student.name）。
+     */
     private String name;
 
-    /** 性别：男 / 女（对应 t_student.gender）。 */
+    /**
+     * 性别：男 / 女（对应 t_student.gender）。
+     */
     private String gender;
 
-    /** 班级（对应 t_student.class_name）。 */
+    /**
+     * 班级（对应 t_student.class_name）。
+     */
     private String className;
 
-    /** 专业（对应 t_student.major）。 */
+    /**
+     * 专业（对应 t_student.major）。
+     */
     private String major;
 
-    /** 联系电话（对应 t_student.phone）。 */
+    /**
+     * 联系电话（对应 t_student.phone）。
+     */
     private String phone;
 
-    /** 电子邮箱（对应 t_student.email）。 */
+    /**
+     * 电子邮箱（对应 t_student.email）。
+     */
     private String email;
 
     public Student() {
