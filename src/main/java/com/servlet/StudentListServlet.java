@@ -95,7 +95,8 @@ public class StudentListServlet extends HttpServlet {
             request.getRequestDispatcher("/admin/student-list.jsp").forward(request, response);
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            getServletContext().log("学生列表查询失败：name=" + name + ", className=" + className
+                    + ", page=" + page + ", pageSize=" + pageSize, e);
             request.setAttribute("errorMsg", "数据库连接失败或查询异常，请稍后再试！");
             request.getRequestDispatcher("/WEB-INF/error/500.jsp").forward(request, response);
         }
